@@ -1,14 +1,18 @@
+button {
+  cursor: pointer;
+}
+
 .mono {
   font-family: monospace;
 }
 
-.App {
-  text-align: center;
-}
-
-.Letter {
+.unstyled-button {
   background: transparent;
   border: none;
+}
+
+.App {
+  text-align: center;
 }
 
 .List {

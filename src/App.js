@@ -17,6 +17,12 @@ class App extends Component {
     }
   }
 
+  clearMessage = () => {
+    this.setState({message: ''})
+    const url = window.location.origin;
+    window.history.replaceState({}, '', url);
+  }
+
   setMessage = (letter) => {
     let {message} = this.state;
     let _message = message += letter
@@ -32,17 +38,33 @@ class App extends Component {
     this.setMessage(letter);
   }
 
+  handleClearClick = () => {
+    this.clearMessage()
+  }
+
   render() {
     const {message} = this.state;
 
     return (
       <div className="App mono">
-        <h2
-          className="flex items-center justify-center m0"
-          style={{height: '3rem'}}
+        <div
+          className="relative"
           >
-          {message}
-        </h2>
+          <h2
+            className="flex items-center justify-center m0"
+            style={{height: '3rem'}}
+            >
+            {message}
+          </h2>
+          {message &&
+            <button
+              className="absolute unstyled-button ml2 right-0 top-0 h2"
+              onClick={this.handleClearClick}
+              >
+              X
+            </button>
+          }
+        </div>
         <ul className="List list-reset m0">
           {LETTERS.map((letter, index) => {
             let boundClick = this.handleLetterClick.bind(this, letter);
@@ -52,7 +74,7 @@ class App extends Component {
                 key={index}
                 >
                 <button
-                  className="Letter caps bold h2 p2 rounded mono"
+                  className="caps bold h2 p2 rounded mono unstyled-button"
                   onClick={boundClick}
                   >
                   {letter}
