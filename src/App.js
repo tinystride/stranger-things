@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import './App.css';
 
+import getParameterFromUrl from './utilities/getParameterFromUrl';
+import './App.css';
 import LETTERS from './constants/letters';
 
 class App extends Component {
   state = {
     message: '',
   };
+
+  componentDidMount() {
+    const url = window.location.href;
+    const _message = getParameterFromUrl('q', url);
+    this.setState({message: _message});
+  }
 
   setMessage = (letter) => {
     let {message} = this.state;
@@ -15,7 +22,7 @@ class App extends Component {
       message: _message
     });
 
-    const url = `?m=${_message}`;
+    const url = `?q=${_message}`;
     window.history.replaceState({}, '', url);
   }
 
