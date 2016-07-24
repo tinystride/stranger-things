@@ -1,12 +1,22 @@
+.mono {
+  font-family: monospace;
+}
+
 .App {
   text-align: center;
 }
 
+.Letter {
+  background: transparent;
+  border: none;
+}
+
 .List {
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
 }
 
 .ListItem {
-  flex: 5%;
+  padding: 2%;
 }
