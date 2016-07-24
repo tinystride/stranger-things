@@ -70,13 +70,18 @@ class App extends Component {
             let boundClick = this.handleLetterClick.bind(this, letter);
             return (
               <li
-                className="ListItem inline-block"
+                className="ListItem inline-block relative"
                 key={index}
                 >
                 <button
                   className="caps bold h2 p2 rounded mono unstyled-button"
                   onClick={boundClick}
                   >
+                  <div
+                    className="Light block mx-auto"
+                    style={{backgroundColor: 'gray'}}
+                    >
+                  </div>
                   {letter}
                 </button>
               </li>

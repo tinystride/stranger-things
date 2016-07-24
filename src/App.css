@@ -24,3 +24,9 @@ button {
 .ListItem {
   padding: 2%;
 }
+
+.Light {
+  border-radius: 50%;
+  height: 1rem;
+  width: 0.5rem;
+}
