@@ -12,7 +12,9 @@ class App extends Component {
   componentDidMount() {
     const url = window.location.href;
     const _message = getParameterFromUrl('q', url);
-    this.setState({message: _message});
+    if (_message) {
+      this.setState({message: _message});
+    }
   }
 
   setMessage = (letter) => {
