@@ -1,4 +1,8 @@
-export default [
+export default {
+  BLINK_DURATION: 1100,
+};
+
+export const LETTERS = [
   'a',
   'b',
   'c',

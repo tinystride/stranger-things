@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import getParameterFromUrl from './utilities/getParameterFromUrl';
 import './App.css';
-import LETTERS from './constants/letters';
+import constants, {LETTERS} from './constants/app';
 
 class App extends Component {
   state = {
@@ -14,7 +14,26 @@ class App extends Component {
     const _message = getParameterFromUrl('q', url);
     if (_message) {
       this.setState({message: _message});
+      // Pass the message because setState isn't updated yet
+      this.animateMessage(_message);
     }
+  }
+
+  animate(letter, delay) {
+    setTimeout(() => {
+      this.setState({activeLetter: letter});
+    }, delay * constants.BLINK_DURATION);
+  }
+
+  animateMessage = (message) => {
+    const {stateMessage} = this.state;
+    const _message = message ? message : stateMessage;
+    if (!_message) { return; }
+    const lettersArray = _message.split('');
+
+    lettersArray.map((letter, index) => {
+      this.animate(letter, index);
+    });
   }
 
   clearMessage = () => {
@@ -43,7 +62,7 @@ class App extends Component {
   }
 
   render() {
-    const {message} = this.state;
+    const {activeLetter, message} = this.state;
 
     return (
       <div className="App mono">
@@ -70,6 +89,7 @@ class App extends Component {
             // TODO: remove .bind here (see react warning docs for refactor)
             // eslint-disable-next-line react/jsx-no-bind
             let boundClick = this.handleLetterClick.bind(this, letter);
+            let isActive = activeLetter === letter;
             return (
               <li
                 className="ListItem inline-block relative"
@@ -80,8 +100,8 @@ class App extends Component {
                   onClick={boundClick}
                   >
                   <div
-                    className="Light block mx-auto"
-                    style={{backgroundColor: 'gray'}}
+                    className="Bulb block mx-auto"
+                    style={{backgroundColor: isActive ? 'red ' : 'gray'}}
                     >
                   </div>
                   {letter}
