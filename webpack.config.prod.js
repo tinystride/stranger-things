@@ -6,17 +6,19 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // TODO: hide this behind a flag and eliminate dead code on eject.
 // This shouldn't be exposed to the user.
+// eslint-disable-next-line yoda
 var isInNodeModules = 'node_modules' ===
-  path.basename(path.resolve(path.join(__dirname, '..', '..')));
-var relativePath = isInNodeModules ? '../../..' : '..';
+  path.basename(path.resolve(__dirname)));
+var relativePath = isInNodeModules ? '../..' : '';
 if (process.argv[2] === '--debug-template') {
   relativePath = '../template';
 }
 var srcPath = path.resolve(__dirname, relativePath, 'src');
-var nodeModulesPath = path.join(__dirname, '..', 'node_modules');
+var nodeModulesPath = path.join(__dirname, 'node_modules');
 var indexHtmlPath = path.resolve(__dirname, relativePath, 'index.html');
 var faviconPath = path.resolve(__dirname, relativePath, 'favicon.ico');
-var buildPath = path.join(__dirname, isInNodeModules ? '../../..' : '..', 'build');
+var buildPath =
+  path.join(__dirname, isInNodeModules ? '../..' : '', 'build');
 
 module.exports = {
   bail: true,
@@ -77,8 +79,7 @@ module.exports = {
   eslint: {
     // TODO: consider separate config for production,
     // e.g. to enable no-console and no-debugger only in prod.
-    configFile: path.join(__dirname, 'eslint.js'),
-    useEslintrc: false
+    configFile: path.join(__dirname, '.eslintrc'),
   },
   postcss: function() {
     return [autoprefixer];

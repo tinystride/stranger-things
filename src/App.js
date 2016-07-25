@@ -9,7 +9,7 @@ class App extends Component {
     message: '',
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const url = window.location.href;
     const _message = getParameterFromUrl('q', url);
     if (_message) {
@@ -18,14 +18,14 @@ class App extends Component {
   }
 
   clearMessage = () => {
-    this.setState({message: ''})
+    this.setState({message: ''});
     const url = window.location.origin;
     window.history.replaceState({}, '', url);
   }
 
   setMessage = (letter) => {
     let {message} = this.state;
-    let _message = message += letter
+    let _message = message += letter;
     this.setState({
       message: _message
     });
@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   handleClearClick = () => {
-    this.clearMessage()
+    this.clearMessage();
   }
 
   render() {
@@ -67,6 +67,8 @@ class App extends Component {
         </div>
         <ul className="List list-reset m0">
           {LETTERS.map((letter, index) => {
+            // TODO: remove .bind here (see react warning docs for refactor)
+            // eslint-disable-next-line react/jsx-no-bind
             let boundClick = this.handleLetterClick.bind(this, letter);
             return (
               <li
